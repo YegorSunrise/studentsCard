@@ -23,7 +23,7 @@ DELETE /api/v1/students/1
 
 Изменение карточки студента
 PUT /api/v1/students/1
-{"fullName":"John"}
+`{"fullName":"John"}`
 
 Создание студента
 POST /api/v1/students
