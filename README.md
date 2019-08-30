@@ -27,4 +27,4 @@ PUT /api/v1/students/1
 
 Создание студента
 POST /api/v1/students
-`{"fullName":"Peter","birthday":"1993-12-    20","group":2,"course":223,"subjects":["ECONOMY","HISTORY"]}`
+`{"fullName":"Peter","birthday":"1993-12-20","group":2,"course":223,"subjects":["ECONOMY","HISTORY"]}`

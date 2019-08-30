@@ -203,7 +203,7 @@ public class StudentRestControllerTest {
         student2.setFullName("Bill");
         when(studentService.saveStudent(student2)).thenReturn(student2);
         mvc.perform(
-                put("/api/v1/students")
+                put("/api/v1/students/" + 2)
                         .content(objectMapper.writeValueAsString(student2))
                         .header("KEY", "pass")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -223,7 +223,7 @@ public class StudentRestControllerTest {
         student2.setFullName("Bill");
         when(studentService.saveStudent(student2)).thenReturn(student2);
         mvc.perform(
-                put("/api/v1/students")
+                put("/api/v1/students/" + 2)
                         .content(objectMapper.writeValueAsString(student2))
                         .header("KEY", "pass")
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))

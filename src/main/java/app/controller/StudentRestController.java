@@ -70,13 +70,20 @@ public class StudentRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Student> update(@RequestBody Student student) {
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Student> update(@RequestBody Student student, @PathVariable String id) {
 
 
-        if (student == null || student.getId() == null) {
+        if (student == null || !id.matches("^[0-9]+$") || student.getId() == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        long _id = Long.parseLong(id);
+
+        if (student.getId() != _id) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         studentService.saveStudent(student);
         return new ResponseEntity<>(student, HttpStatus.OK);
 
