@@ -53,9 +53,9 @@ public class StudentRestControllerTest {
         add(Subject.HISTORY);
         add(Subject.PROGRAMMING);
     }};
-    private Student student1 = new Student(1L, "Semen", date, 344, 3, subjects);
-    private Student student2 = new Student(2L, "Ivan", date, 244, 2, subjects);
-    private Student student3 = new Student("Petr", date, 144, 1, subjects);
+    private Student student1 = new Student(1L, "Peter", date, 344, 3, subjects);
+    private Student student2 = new Student(2L, "John", date, 244, 2, subjects);
+    private Student student3 = new Student("Mike", date, 144, 1, subjects);
     private List<Student> students = new ArrayList<Student>() {{
         add(student1);
         add(student2);
@@ -85,13 +85,13 @@ public class StudentRestControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].fullName").value("Semen"))
+                .andExpect(jsonPath("$[0].fullName").value("Peter"))
                 .andExpect(jsonPath("$[0].birthday").value(date.toString()))
                 .andExpect(jsonPath("$[0].group").value(344))
                 .andExpect(jsonPath("$[0].course").value(3))
                 .andExpect(jsonPath("$[0].subjects").value(subjects.stream().map(Enum::name).collect(Collectors.toList())))
                 .andExpect(jsonPath("$[1].id").value(2))
-                .andExpect(jsonPath("$[1].fullName").value("Ivan"))
+                .andExpect(jsonPath("$[1].fullName").value("John"))
                 .andExpect(jsonPath("$[1].birthday").value(date.toString()))
                 .andExpect(jsonPath("$[1].group").value(244))
                 .andExpect(jsonPath("$[1].course").value(2))
@@ -119,7 +119,7 @@ public class StudentRestControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.fullName").value("Semen"))
+                .andExpect(jsonPath("$.fullName").value("Peter"))
                 .andExpect(jsonPath("$.birthday").value(date.toString()))
                 .andExpect(jsonPath("$.group").value(344))
                 .andExpect(jsonPath("$.course").value(3))
@@ -177,7 +177,7 @@ public class StudentRestControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.fullName").value("Petr"))
+                .andExpect(jsonPath("$.fullName").value("Mike"))
                 .andExpect(jsonPath("$.birthday").value(date.toString()))
                 .andExpect(jsonPath("$.group").value(144))
                 .andExpect(jsonPath("$.course").value(1))
@@ -200,7 +200,7 @@ public class StudentRestControllerTest {
     public void shouldUpdate() throws Exception {
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        student2.setFullName("Kirill");
+        student2.setFullName("Bill");
         when(studentService.saveStudent(student2)).thenReturn(student2);
         mvc.perform(
                 put("/api/v1/students")
@@ -210,7 +210,7 @@ public class StudentRestControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(2))
-                .andExpect(jsonPath("$.fullName").value("Kirill"))
+                .andExpect(jsonPath("$.fullName").value("Bill"))
                 .andExpect(jsonPath("$.birthday").value(date.toString()))
                 .andExpect(jsonPath("$.group").value(244))
                 .andExpect(jsonPath("$.course").value(2))
@@ -220,7 +220,7 @@ public class StudentRestControllerTest {
     @Test
     public void shouldBadRequestUpdate() throws Exception {
         objectMapper = new ObjectMapper();
-        student2.setFullName("Kirill");
+        student2.setFullName("Bill");
         when(studentService.saveStudent(student2)).thenReturn(student2);
         mvc.perform(
                 put("/api/v1/students")
